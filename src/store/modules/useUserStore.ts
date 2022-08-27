@@ -1,41 +1,21 @@
 import { defineStore } from 'pinia'
+import { User } from '@/app/user'
 
 export interface IUserInfo {
-  token: string
+  position: [number, number]
   name: string
-  id: string
 }
 
-export const useUserStore = defineStore({
-  id: 'user',
-  state: (): IUserInfo => {
-    return {
-      token: '',
-      name: '',
-      id: '',
-    }
-  },
-  getters: {
-    isLogin(): boolean {
-      return this.token !== ''
-    },
-  },
-  actions: {
-    setToken(token: string) {
-      this.token = token
-    },
-    setId(id: string) {
-      this.id = id
-    },
-    login(user: Partial<IUserInfo>) {
-      this.$patch({
-        ...user,
-      })
-    },
-    logout() {
-      this.$reset()
-      localStorage.removeItem('user')
-    },
-  },
-})
+export const useUserStore = defineStore('user', () => {
+  const user = ref<IUserInfo>({
+    position: [20, 30],
+    name: 'John Doe',
+  })
 
+  const userInstance = ref<User>(new User(user.value.position, user.value.name))
+
+  return {
+    user,
+    userInstance,
+  }
+})

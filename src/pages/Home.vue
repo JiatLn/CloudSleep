@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { User } from '@/app/user'
 import type { Bed } from '@/types'
 
@@ -9,24 +10,25 @@ const bedItems = ref<Bed[]>(
   })),
 )
 
-const user = ref<User>(new User([80, 40], 'user'))
+const userList = ref<User[]>([
+  new User([80, 60], 'user1'),
+  new User([120, 40], 'user2'),
+  new User([160, 60], 'user3'),
+  new User([200, 40], 'user4'),
+])
+
+const userStore = useUserStore()
+const { userInstance: me } = storeToRefs(userStore)
 
 onMounted(() => {
-  document.addEventListener('keydown', e => user.value.onKeyDown(e))
-})
-
-const styles = computed(() => {
-  return {
-    top: `${user.value.getPosition().y}px`,
-    left: `${user.value.getPosition().x}px`,
-  }
+  document.addEventListener('keydown', e => me.value.onKeyDown(e))
 })
 </script>
 
 <template>
   <div h-full w-full flex="c col" all:transition-400>
     <div fixed right-2 top-2>
-      My Position: ({{ user.getPosition().x }}, {{ user.getPosition().y }})
+      My Position: ({{ me.pos.x }}, {{ me.pos.y }})
     </div>
     <div mb-8 italic font="mono" text="36px brand-primary">
       Welcome to Cloud Sleep~~
@@ -34,7 +36,8 @@ const styles = computed(() => {
     <div grid="~ cols-8 row-auto gap-40px" mx-auto>
       <div v-for="item, idx in bedItems" :key="idx" text="gray" w-50px h-50px i-iconoir:bed />
     </div>
-    <div fixed animate-bounce animate-count-infinite animate-duration-3s :style="styles" w-50px h-50px i-emojione-monotone:man-in-suit-levitating />
+    <TheUser :position="me.pos" />
+    <TheUser v-for="user in userList" :key="user.name" :position="user.pos" />
   </div>
 </template>
 

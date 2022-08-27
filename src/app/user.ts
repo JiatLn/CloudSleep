@@ -7,7 +7,7 @@ export class User {
     this.name = name
   }
 
-  getPosition() {
+  get pos() {
     return {
       x: this.position[0],
       y: this.position[1],
@@ -16,29 +16,29 @@ export class User {
 
   onKeyDown(e: KeyboardEvent) {
     const { key } = e
-    const { x, y } = this.getPosition()
+    const { x, y } = this.pos
 
     switch (key) {
       case 'ArrowUp':
         if (y <= 0)
           return
-        this.position = [x, y - this.STEP]
+        this._move([x, y - this.STEP])
         break
       case 'ArrowDown':
-        this.position = [x, y + this.STEP]
+        this._move([x, y + this.STEP])
         break
       case 'ArrowLeft':
         if (x <= 0)
           return
-        this.position = [x - this.STEP, y]
+        this._move([x - this.STEP, y])
         break
       case 'ArrowRight':
-        this.position = [x + this.STEP, y]
+        this._move([x + this.STEP, y])
         break
     }
   }
 
-  move(position: [number, number]) {
+  _move(position: [number, number]) {
     this.position = position
   }
 }
