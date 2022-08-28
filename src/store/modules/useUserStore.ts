@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { socket } from '@/app/socket'
 import { User } from '@/app/user'
 import type { Pos } from '@/types'
 
@@ -13,18 +14,26 @@ export const useUserStore = defineStore('user', () => {
   function userLogin(name: string, position: Pos) {
     user.value = new User(position, name)
     window.addEventListener('keydown', e => user.value?.onKeyDown((e)))
-    const store = usePeopleStore()
-    store.addUser('dddd', user.value)
+    socket.emit('addUser', user.value)
   }
 
-  watchThrottled(() => user.value?.pos, (val) => {
+  function userLogout() {
+    user.value = undefined
+    window.removeEventListener('keydown', e => user.value?.onKeyDown((e)))
+  }
+
+  watch(() => user.value?.pos, (val) => {
     if (!val)
       return
-    console.log('user now at: ', val)
-  }, { throttle: 500 })
+    socket.emit('userMove', {
+      name: user.value?.name,
+      position: val,
+    })
+  })
 
   return {
     user,
     userLogin,
+    userLogout,
   }
 })

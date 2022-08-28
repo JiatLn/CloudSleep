@@ -13,7 +13,7 @@ const bedItems = ref<Bed[]>(
 )
 
 const peopleStore = usePeopleStore()
-const { userList } = storeToRefs(peopleStore)
+const { otherUserList, userList } = storeToRefs(peopleStore)
 
 const userStore = useUserStore()
 const { user: me } = storeToRefs(userStore)
@@ -25,7 +25,7 @@ onMounted(() => {
 })
 
 function onLogin() {
-  userStore.userLogin('admin', {
+  userStore.userLogin(`user-${userList.value.length + 1}`, {
     x: 20,
     y: 30,
   })
@@ -50,7 +50,7 @@ function onLogin() {
       v-if="me"
       :pos="me.pos" :name="me.name" />
     <TheUser
-      v-for="user in userList" :key="user.socketId"
+      v-for="user in otherUserList" :key="user.name"
       :pos="user.pos" :name="user.name" />
   </div>
 </template>

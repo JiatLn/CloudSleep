@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 import type { Pos } from '@/types'
 
 export interface IPeopleInfo {
@@ -10,27 +10,42 @@ export interface IPeopleInfo {
 export const usePeopleStore = defineStore('people', () => {
   const userList = ref<IPeopleInfo[]>([])
 
-  function updateUser(socketId: string, info: Partial<IPeopleInfo>) {
-    const idx = userList.value.findIndex(user => user.socketId === socketId)
+  const otherUserList = computed(() => {
+    const store = useUserStore()
+    const { user } = storeToRefs(store)
+    return userList.value.filter(item => item.name !== user.value?.name)
+  })
+
+  function updateUser(name: string, info: Partial<IPeopleInfo>) {
+    const idx = userList.value.findIndex(user => user.name === name)
     userList.value[idx] = { ...userList.value[idx], ...info }
   }
 
-  function isOnList(socketId: string) {
-    return userList.value.findIndex(user => user.socketId === socketId) !== -1
-  }
-
-  function addUser(socketId: string, info: Partial<IPeopleInfo>) {
-    if (isOnList(socketId)) {
+  function addUser(userInfo: IPeopleInfo) {
+    const idx = userList.value.findIndex(user => user.name === userInfo.name)
+    if (idx !== -1) {
+      userList.value[idx] = userInfo
       return
     }
-    const newUser = { ...info, socketId } as IPeopleInfo
-    userList.value.push(newUser)
+    userList.value.push(userInfo)
+  }
+
+  function deleteUser(socketId: string) {
+    const idx = userList.value.findIndex(user => user.socketId === socketId)
+    if (idx !== -1) {
+      const store = useUserStore()
+      if (store.user?.name === userList.value[idx].name) {
+        store.userLogout()
+      }
+      userList.value.splice(idx, 1)
+    }
   }
 
   return {
+    otherUserList,
     userList,
     addUser,
     updateUser,
-    isOnList,
+    deleteUser,
   }
 })

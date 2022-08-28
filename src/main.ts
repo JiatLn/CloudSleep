@@ -12,7 +12,7 @@ import '@/assets/styles/global.less'
 const app = createApp(App)
 const pinia = createPinia()
 
-pinia.use(keepPiniaPlugin)
+pinia.use(_ => keepPiniaPlugin(_ as any, 'session'))
 
 app.use(router).use(pinia)
 
