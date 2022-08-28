@@ -4,7 +4,10 @@ import type { Bed } from '@/types'
 
 const bedItems = ref<Bed[]>(
   Array.from({ length: 8 * 8 }, _ => ({
-    position: [0, 0],
+    position: {
+      x: 0,
+      y: 0,
+    },
     isUsed: false,
   })),
 )
@@ -17,12 +20,15 @@ const { user: me } = storeToRefs(userStore)
 
 onMounted(() => {
   if (me.value) {
-    userStore.userLogin(me.value.name, me.value.position)
+    userStore.userLogin(me.value.name, me.value.pos)
   }
 })
 
 function onLogin() {
-  userStore.userLogin('admin', [20, 30])
+  userStore.userLogin('admin', {
+    x: 20,
+    y: 30,
+  })
 }
 </script>
 
@@ -40,8 +46,12 @@ function onLogin() {
     <div grid="~ cols-8 row-auto gap-40px" mx-auto>
       <div v-for="item, idx in bedItems" :key="idx" text="gray" w-50px h-50px i-iconoir:bed />
     </div>
-    <TheUser v-if="me" :position="me.pos" :name="me.name" />
-    <TheUser v-for="user in userList" :key="user.socketId" :position="user.position" :name="user.name" />
+    <TheUser
+      v-if="me"
+      :pos="me.pos" :name="me.name" />
+    <TheUser
+      v-for="user in userList" :key="user.socketId"
+      :pos="user.pos" :name="user.name" />
   </div>
 </template>
 

@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import type { StyleValue } from 'vue'
+import type { Pos } from '@/types'
 
 const props = defineProps<{
-  position: {
-    x: number
-    y: number
-  }
+  pos: Pos
   name: string
 }>()
 
 const styles = computed((): StyleValue => {
-  if (!props.position) {
+  if (!props.pos) {
     return {}
   }
   return {
-    left: `${props.position.x}px`,
-    top: `${props.position.y}px`,
+    left: `${props.pos.x}px`,
+    top: `${props.pos.y}px`,
     position: 'fixed',
   }
 })

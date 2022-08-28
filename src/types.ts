@@ -1,4 +1,9 @@
 export interface Bed {
-  position: [number, number]
+  position: Pos
   isUsed: boolean
+}
+
+export interface Pos {
+  x: number
+  y: number
 }
