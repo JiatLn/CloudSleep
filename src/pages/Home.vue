@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { User } from '@/app/user'
 import type { Bed } from '@/types'
 
 const bedItems = ref<Bed[]>(
@@ -10,34 +9,39 @@ const bedItems = ref<Bed[]>(
   })),
 )
 
-const userList = ref<User[]>([
-  new User([80, 60], 'user1'),
-  new User([120, 40], 'user2'),
-  new User([160, 60], 'user3'),
-  new User([200, 40], 'user4'),
-])
+const peopleStore = usePeopleStore()
+const { userList } = storeToRefs(peopleStore)
 
 const userStore = useUserStore()
-const { userInstance: me } = storeToRefs(userStore)
+const { user: me } = storeToRefs(userStore)
 
 onMounted(() => {
-  document.addEventListener('keydown', e => me.value.onKeyDown(e))
+  if (me.value) {
+    userStore.userLogin(me.value.name, me.value.position)
+  }
 })
+
+function onLogin() {
+  userStore.userLogin('admin', [20, 30])
+}
 </script>
 
 <template>
   <div h-full w-full flex="c col" all:transition-400>
-    <div fixed right-2 top-2>
+    <div v-if="me?.pos" fixed right-2 top-2>
       My Position: ({{ me.pos.x }}, {{ me.pos.y }})
     </div>
     <div mb-8 italic font="mono" text="36px brand-primary">
       Welcome to Cloud Sleep~~
+      <button v-if="!me" btn @click="onLogin">
+        login
+      </button>
     </div>
     <div grid="~ cols-8 row-auto gap-40px" mx-auto>
       <div v-for="item, idx in bedItems" :key="idx" text="gray" w-50px h-50px i-iconoir:bed />
     </div>
-    <TheUser :position="me.pos" />
-    <TheUser v-for="user in userList" :key="user.name" :position="user.pos" />
+    <TheUser v-if="me" :position="me.pos" :name="me.name" />
+    <TheUser v-for="user in userList" :key="user.socketId" :position="user.position" :name="user.name" />
   </div>
 </template>
 

@@ -7,15 +7,15 @@ export interface IUserInfo {
 }
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref<IUserInfo>({
-    position: [20, 30],
-    name: 'John Doe',
-  })
+  const user = ref<User | undefined>()
 
-  const userInstance = ref<User>(new User(user.value.position, user.value.name))
+  function userLogin(name: string, position: [number, number]) {
+    user.value = new User(position, name)
+    window.addEventListener('keydown', e => user.value?.onKeyDown((e)))
+  }
 
   return {
     user,
-    userInstance,
+    userLogin,
   }
 })
