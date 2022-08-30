@@ -23,25 +23,18 @@ onMounted(() => {
     userStore.userLogin(me.value.name, me.value.pos)
   }
 })
-
-function onLogin() {
-  userStore.userLogin(`user-${userList.value.length + 1}`, {
-    x: 20,
-    y: 30,
-  })
-}
 </script>
 
 <template>
   <div h-full w-full flex="c col" all:transition-400>
     <div v-if="me?.pos" fixed right-2 top-2>
-      My Position: ({{ me.pos.x }}, {{ me.pos.y }})
+      My Position: ({{  me.pos.x  }}, {{  me.pos.y  }})
     </div>
-    <div mb-8 italic font="mono" text="36px brand-primary">
-      Welcome to Cloud Sleep~~
-      <button v-if="!me" btn @click="onLogin">
-        login
-      </button>
+    <div mb-8 flex="c" gap-3>
+      <div italic font="mono" text="36px brand-primary">
+        Welcome to Cloud Sleep~~
+      </div>
+      <LoginModal />
     </div>
     <div grid="~ cols-8 row-auto gap-40px" mx-auto>
       <div v-for="item, idx in bedItems" :key="idx" text="gray" w-50px h-50px i-iconoir:bed />

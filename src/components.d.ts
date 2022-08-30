@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     LazyImg: typeof import('./components/common/LazyImg.vue')['default']
+    LoginModal: typeof import('./components/LoginModal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheBox: typeof import('./components/common/TheBox.vue')['default']
