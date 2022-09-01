@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia'
 
 const userStore = useUserStore()
-const { user: me } = storeToRefs(userStore)
+const { isLogin } = storeToRefs(userStore)
 
 const showLoginModel = ref<boolean>(false)
 const loginForm = ref({
@@ -14,16 +14,17 @@ function onLogin() {
     alert('Please enter your name')
     return
   }
-  showLoginModel.value = false
   userStore.userLogin(loginForm.value.username, {
     x: 20,
     y: 30,
   })
+  showLoginModel.value = false
+  loginForm.value.username = ''
 }
 </script>
 
 <template>
-  <button v-if="!me" btn @click="showLoginModel = true">
+  <button v-if="!isLogin" btn @click="showLoginModel = true">
     Login
   </button>
   <button v-else btn @click="userStore.userLogout()">

@@ -13,10 +13,10 @@ const bedItems = ref<Bed[]>(
 )
 
 const peopleStore = usePeopleStore()
-const { otherUserList, userList } = storeToRefs(peopleStore)
+const { otherUserList } = storeToRefs(peopleStore)
 
 const userStore = useUserStore()
-const { user: me } = storeToRefs(userStore)
+const { user: me, isLogin } = storeToRefs(userStore)
 
 onMounted(() => {
   if (me.value) {
@@ -27,8 +27,8 @@ onMounted(() => {
 
 <template>
   <div h-full w-full flex="c col" all:transition-400>
-    <div v-if="me?.pos" fixed right-2 top-2>
-      My Position: ({{  me.pos.x  }}, {{  me.pos.y  }})
+    <div v-if="isLogin" fixed right-2 top-2>
+      My Position: ({{ me!.pos.x }}, {{ me!.pos.y }})
     </div>
     <div mb-8 flex="c" gap-3>
       <div italic font="mono" text="36px brand-primary">
@@ -39,9 +39,7 @@ onMounted(() => {
     <div grid="~ cols-8 row-auto gap-40px" mx-auto>
       <div v-for="item, idx in bedItems" :key="idx" text="gray" w-50px h-50px i-iconoir:bed />
     </div>
-    <TheUser
-      v-if="me"
-      :pos="me.pos" :name="me.name" />
+    <TheUser v-if="isLogin" :pos="me!.pos" :name="me!.name" />
     <TheUser
       v-for="user in otherUserList" :key="user.name"
       :pos="user.pos" :name="user.name" />
