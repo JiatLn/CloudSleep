@@ -15,8 +15,8 @@ function onLogin() {
     return
   }
   userStore.userLogin(loginForm.value.username, {
-    x: 20,
-    y: 30,
+    x: 80,
+    y: 120,
   })
   showLoginModel.value = false
   loginForm.value.username = ''

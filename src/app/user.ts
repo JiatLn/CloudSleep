@@ -29,7 +29,8 @@ export class User {
   }
 
   onKeyDown(e: KeyboardEvent) {
-    this.onSleep(-1) // wake up
+    if (this.isSleeping)
+      return
 
     const { key } = e
     const { x, y } = this.pos

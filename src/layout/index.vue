@@ -1,7 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <section h-full>
+  <TheHeader />
+  <section h-fs>
     <router-view />
   </section>
   <!-- <TheFooter /> -->

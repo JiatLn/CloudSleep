@@ -10,7 +10,7 @@ import {
 export default defineConfig({
   shortcuts: [
     ['flex-c', 'flex items-center justify-center'],
-    ['h-fs', 'h-[calc(100vh-40px)]'],
+    ['h-fs', 'h-[calc(100vh-60px)]'],
     [
       'btn',
       'px-4 py-1 text-sm text-#daab66 font-semibold rounded-full border border-#daab66 hover:text-white hover:bg-#daab66 hover:border-transparent focus:outline-none focus:ring-2 ring-#daab66 ring-opacity-40 cursor-pointer text-center',

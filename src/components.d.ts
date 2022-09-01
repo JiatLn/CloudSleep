@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     TheBed: typeof import('./components/TheBed.vue')['default']
     TheBox: typeof import('./components/common/TheBox.vue')['default']
     TheFooter: typeof import('./components/TheFooter.vue')['default']
+    TheHeader: typeof import('./components/TheHeader.vue')['default']
     TheUser: typeof import('./components/TheUser.vue')['default']
   }
 }
