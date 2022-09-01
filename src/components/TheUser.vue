@@ -5,6 +5,7 @@ import type { Pos } from '@/types'
 const props = defineProps<{
   pos: Pos
   name: string
+  message?: string
 }>()
 
 const styles = computed((): StyleValue => {
@@ -21,10 +22,33 @@ const styles = computed((): StyleValue => {
 
 <template>
   <div flex="c col" :style="styles">
-    <span border rounded-4px mb-4 px-1 bg-brand-primary text="white">{{ props.name }}</span>
-    <div animate-bounce animate-count-infinite animate-duration-3s w-50px h-50px i-emojione-monotone:man-in-suit-levitating />
+    <span border rounded-4px mb-3 py-1 px-2 bg-brand-primary text="white 14px">
+      {{ props.name }}
+    </span>
+    <div w-50px h-50px i-emojione-monotone:man-in-suit-levitating />
+    <div v-show="props.message?.length" class="cloud">
+      <div flex-1>
+        {{ props.message }}
+      </div>
+    </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped lang="less">
+.cloud {
+  width: max-content;
+  @apply absolute border bg-gray text-white text-14px px-4 py-2 rounded-6px left-72px top-6px ani-bounce flex;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: -6px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-right: 6px solid rgb(156, 163, 175);
+    border-bottom: 6px solid transparent;
+  }
+}
 </style>

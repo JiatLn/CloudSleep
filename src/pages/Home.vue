@@ -39,10 +39,11 @@ onMounted(() => {
     <div grid="~ cols-8 row-auto gap-40px" mx-auto>
       <div v-for="item, idx in bedItems" :key="idx" text="gray" w-50px h-50px i-iconoir:bed />
     </div>
-    <TheUser v-if="isLogin" :pos="me!.pos" :name="me!.name" />
+    <TheUser v-if="isLogin" :pos="me!.pos" :name="me!.name" :message="me?.message" />
     <TheUser
       v-for="user in otherUserList" :key="user.name"
       :pos="user.pos" :name="user.name" />
+    <CheatInput v-if="isLogin" />
   </div>
 </template>
 

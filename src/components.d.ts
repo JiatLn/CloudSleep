@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CheatInput: typeof import('./components/CheatInput.vue')['default']
     LazyImg: typeof import('./components/common/LazyImg.vue')['default']
     LoginModal: typeof import('./components/LoginModal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

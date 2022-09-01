@@ -13,8 +13,9 @@ export default defineConfig({
     ['h-fs', 'h-[calc(100vh-40px)]'],
     [
       'btn',
-      'px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 dark:border-purple-800 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 ring-purple-600 ring-opacity-40 cursor-pointer text-center',
+      'px-4 py-1 text-sm text-#daab66 font-semibold rounded-full border border-#daab66 hover:text-white hover:bg-#daab66 hover:border-transparent focus:outline-none focus:ring-2 ring-#daab66 ring-opacity-40 cursor-pointer text-center',
     ],
+    ['ani-bounce', 'animate-bounce animate-count-infinite animate-duration-3s'],
   ],
   theme: {
     colors: {

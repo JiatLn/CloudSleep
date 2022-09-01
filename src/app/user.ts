@@ -3,10 +3,19 @@ import type { Pos } from '@/types'
 export class User {
   pos: Pos
   name: string
+  message: string
   STEP = 5
   constructor(pos: Pos, name: string) {
     this.pos = pos
     this.name = name
+    this.message = ''
+  }
+
+  onTold(message: string) {
+    this.message = message
+    setTimeout(() => {
+      this.message = ''
+    }, 3000)
   }
 
   onKeyDown(e: KeyboardEvent) {
