@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import type { Bed } from '@/types'
 
 const bedItems = ref<Bed[]>(
@@ -30,12 +31,39 @@ function refreshPos() {
     }
   }
 }
+
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
+
+watch(
+  () => user.value?.sleepIdx,
+  (_, oldVal) => {
+    if (oldVal !== undefined && oldVal !== -1) {
+      bedItems.value[oldVal].isUsed = false
+    }
+  },
+)
+
+function toSleep(bedIdx: number) {
+  const bed = bedItems.value[bedIdx]
+  if (bed.isUsed || !user.value) {
+    return
+  }
+  user.value.onSleep(bedIdx)
+  bed.isUsed = true
+}
 </script>
 
 <template>
   <div ref="bedListRef" grid="~ cols-8 row-auto gap-40px" mx-auto>
-    <div v-for="item, idx in bedItems" :key="idx" text="gray" w-80px h-80px border relative>
-      <img src="@/assets/img/bedEmpty.png" alt="bed">
+    <div
+      v-for="item, idx in bedItems" :key="idx"
+      cursor="pointer"
+      :class="{ 'border-brand-primary! border-solid': item.isUsed }"
+      w-80px
+      h-80px border="~ gray dashed" relative @click="toSleep(idx)">
+      <img v-if="!item.isUsed" src="@/assets/img/bedEmpty.png" alt="bed" hover="op-40">
+      <img v-if="item.isUsed" src="@/assets/img/bedBoy.png" alt="bed" hover="op-40">
       <span text="12px #333" absolute bottom--6 left="50%" translate-x="-50%" style="width:max-content">({{ item.pos.x }}, {{ item.pos.y }})</span>
     </div>
   </div>

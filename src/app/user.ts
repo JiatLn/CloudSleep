@@ -4,11 +4,13 @@ export class User {
   pos: Pos
   name: string
   message: string
+  sleepIdx: number
   STEP = 5
   constructor(pos: Pos, name: string) {
     this.pos = pos
     this.name = name
     this.message = ''
+    this.sleepIdx = -1
   }
 
   onTold(message: string) {
@@ -18,7 +20,17 @@ export class User {
     }, 3000)
   }
 
+  onSleep(bedIdx: number) {
+    this.sleepIdx = bedIdx
+  }
+
+  get isSleeping() {
+    return this.sleepIdx !== -1
+  }
+
   onKeyDown(e: KeyboardEvent) {
+    this.onSleep(-1) // wake up
+
     const { key } = e
     const { x, y } = this.pos
 

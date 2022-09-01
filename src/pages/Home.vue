@@ -26,7 +26,7 @@ onMounted(() => {
       <LoginModal />
     </div>
     <TheBed />
-    <TheUser v-if="isLogin" :pos="me!.pos" :name="me!.name" :message="me?.message" />
+    <TheUser v-if="isLogin" :pos="me!.pos" :name="me!.name" :message="me?.message" :is-sleeping="me?.isSleeping" />
     <TheUser
       v-for="user in otherUserList" :key="user.name"
       :pos="user.pos" :name="user.name" />
