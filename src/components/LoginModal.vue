@@ -44,7 +44,8 @@ function onLogin() {
         <div>
           <label for="username" mr-3> Your Name </label>
           <input
-            id="username" v-model="loginForm.username"
+            id="username"
+            @keydown.enter="onLogin" v-model="loginForm.username"
             v-focus placeholder="Enter your big name" type="text"
             border="~" outline-none p-2>
         </div>
