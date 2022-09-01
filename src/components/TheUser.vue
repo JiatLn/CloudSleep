@@ -22,10 +22,12 @@ const styles = computed((): StyleValue => {
 
 <template>
   <div flex="c col" :style="styles">
-    <span border rounded-4px mb-3 py-1 px-2 bg-brand-primary text="white 14px">
+    <span border rounded-4px mb--4 py-1 px-2 bg-brand-primary text="white 14px">
       {{ props.name }}
     </span>
-    <div w-50px h-50px i-emojione-monotone:man-in-suit-levitating />
+    <div w-90px h-90px>
+      <img src="@/assets/img/Boy.png" alt="boy">
+    </div>
     <div v-show="props.message?.length" class="cloud">
       <div flex-1>
         {{ props.message }}
@@ -37,7 +39,7 @@ const styles = computed((): StyleValue => {
 <style scoped lang="less">
 .cloud {
   width: max-content;
-  @apply absolute border bg-gray text-white text-14px px-4 py-2 rounded-6px left-72px top-6px ani-bounce flex;
+  @apply absolute border bg-gray text-white text-14px px-4 py-2 rounded-6px left-90px top-6px ani-bounce flex;
 
   &::before {
     content: "";
