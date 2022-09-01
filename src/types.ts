@@ -1,5 +1,5 @@
 export interface Bed {
-  position: Pos
+  pos: Pos
   isUsed: boolean
 }
 

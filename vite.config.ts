@@ -57,14 +57,6 @@ export default ({ mode }) => {
         },
       },
     },
-    // to solve warning: "@charset" must be the first rule in the file
-    css: {
-      preprocessorOptions: {
-        scss: {
-          charset: false,
-        },
-      },
-    },
     build: {
       // 浏览器兼容性
       target: 'es2015',

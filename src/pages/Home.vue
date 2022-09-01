@@ -1,16 +1,5 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import type { Bed } from '@/types'
-
-const bedItems = ref<Bed[]>(
-  Array.from({ length: 8 * 4 }, _ => ({
-    position: {
-      x: 0,
-      y: 0,
-    },
-    isUsed: false,
-  })),
-)
 
 const peopleStore = usePeopleStore()
 const { otherUserList } = storeToRefs(peopleStore)
@@ -36,11 +25,7 @@ onMounted(() => {
       </div>
       <LoginModal />
     </div>
-    <div grid="~ cols-8 row-auto gap-40px" mx-auto>
-      <div v-for="item, idx in bedItems" :key="idx" text="gray" w-80px h-80px>
-        <img src="@/assets/img/bedEmpty.png" alt="bed">
-      </div>
-    </div>
+    <TheBed />
     <TheUser v-if="isLogin" :pos="me!.pos" :name="me!.name" :message="me?.message" />
     <TheUser
       v-for="user in otherUserList" :key="user.name"
