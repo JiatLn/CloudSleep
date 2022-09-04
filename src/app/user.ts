@@ -7,11 +7,13 @@ export class User {
   sleepIdx: number
   STEP = 5
   timer: any = null
+  socketId: string
   constructor(pos: Pos, name: string) {
     this.pos = pos
     this.name = name
     this.message = ''
     this.sleepIdx = -1
+    this.socketId = ''
   }
 
   cheat(message: string) {

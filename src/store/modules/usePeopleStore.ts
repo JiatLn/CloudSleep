@@ -17,6 +17,10 @@ export const usePeopleStore = defineStore('people', () => {
     return userList.value.filter(item => item.name !== user.value?.name)
   })
 
+  function cleanUp() {
+    userList.value = []
+  }
+
   function updateUser(name: string, info: Partial<IPeopleInfo>) {
     const idx = userList.value.findIndex(user => user.name === name)
     userList.value[idx] = { ...userList.value[idx], ...info }
@@ -34,10 +38,6 @@ export const usePeopleStore = defineStore('people', () => {
   function deleteUser(socketId: string) {
     const idx = userList.value.findIndex(user => user.socketId === socketId)
     if (idx !== -1) {
-      const store = useUserStore()
-      if (store.user?.name === userList.value[idx].name) {
-        store.userLogout()
-      }
       userList.value.splice(idx, 1)
     }
   }
@@ -53,5 +53,6 @@ export const usePeopleStore = defineStore('people', () => {
     updateUser,
     deleteUser,
     getUserByName,
+    cleanUp,
   }
 })
