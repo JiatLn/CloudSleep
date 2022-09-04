@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client'
 import { storeToRefs } from 'pinia'
 import type { IPeopleInfo } from '@/store'
+import type { MoveData } from '@/types'
 
 const socket = io('http://localhost:3000')
 
@@ -38,17 +39,12 @@ export function initSocket() {
 
   socket.on('[server](addUser)', (data) => {
     const peopleStore = usePeopleStore()
-    const userStore = useUserStore()
-    const { user } = storeToRefs(userStore)
-
-    console.log(data)
     peopleStore.addUser(data)
-    user.value && socket.emit('[client](addUser)', user.value.socketId)
   })
 
-  socket.on('[server](userMove)', (data) => {
+  socket.on('[server](userMove)', (data: MoveData) => {
     const peopleStore = usePeopleStore()
-    peopleStore.updateUser(data.name, { pos: data.position })
+    peopleStore.updateUser(data.socketId, { pos: data.position })
   })
 
   let timer: any = null

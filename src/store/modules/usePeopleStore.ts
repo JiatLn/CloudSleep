@@ -21,8 +21,8 @@ export const usePeopleStore = defineStore('people', () => {
     userList.value = []
   }
 
-  function updateUser(name: string, info: Partial<IPeopleInfo>) {
-    const idx = userList.value.findIndex(user => user.name === name)
+  function updateUser(socketId: string, info: Partial<IPeopleInfo>) {
+    const idx = userList.value.findIndex(user => user.socketId === socketId)
     userList.value[idx] = { ...userList.value[idx], ...info }
   }
 

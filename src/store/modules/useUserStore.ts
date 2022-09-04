@@ -38,7 +38,7 @@ export const useUserStore = defineStore('user', () => {
     if (!val)
       return
     socket.emit('userMove', {
-      name: user.value?.name,
+      socketId: user.value?.socketId,
       position: val,
     })
   })
