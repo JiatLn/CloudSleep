@@ -6,6 +6,7 @@ export class User {
   message: string
   sleepIdx: number
   STEP = 5
+  timer: any = null
   constructor(pos: Pos, name: string) {
     this.pos = pos
     this.name = name
@@ -13,9 +14,12 @@ export class User {
     this.sleepIdx = -1
   }
 
-  onTold(message: string) {
+  cheat(message: string) {
     this.message = message
-    setTimeout(() => {
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
+    this.timer = setTimeout(() => {
       this.message = ''
     }, 3000)
   }

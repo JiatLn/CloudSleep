@@ -21,6 +21,20 @@ socket.on('[server](userMove)', (data) => {
   peopleStore.updateUser(data.name, { pos: data.position })
 })
 
+let timer: any = null
+socket.on('[server](userCheat)', (data) => {
+  const { userName, msg } = data
+  const peopleStore = usePeopleStore()
+  const user = peopleStore.getUserByName(userName)!
+  user.message = msg
+  if (timer) {
+    clearTimeout(timer)
+  }
+  timer = setTimeout(() => {
+    user.message = ''
+  }, 3000)
+})
+
 export {
   socket,
 }

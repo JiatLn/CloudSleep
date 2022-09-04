@@ -5,6 +5,7 @@ export interface IPeopleInfo {
   pos: Pos
   name: string
   socketId: string
+  message: string
 }
 
 export const usePeopleStore = defineStore('people', () => {
@@ -41,11 +42,16 @@ export const usePeopleStore = defineStore('people', () => {
     }
   }
 
+  function getUserByName(name: string) {
+    return userList.value.find(user => user.name === name)
+  }
+
   return {
     otherUserList,
     userList,
     addUser,
     updateUser,
     deleteUser,
+    getUserByName,
   }
 })

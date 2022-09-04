@@ -24,6 +24,16 @@ export const useUserStore = defineStore('user', () => {
     window.removeEventListener('keydown', e => user.value?.onKeyDown((e)))
   }
 
+  function userCheat(msg: string) {
+    if (!user.value)
+      return
+    user.value.cheat(msg)
+    socket.emit('userCheat', {
+      userName: user.value?.name,
+      msg,
+    })
+  }
+
   watch(() => user.value?.pos, (val) => {
     if (!val)
       return
@@ -38,5 +48,6 @@ export const useUserStore = defineStore('user', () => {
     isLogin,
     userLogin,
     userLogout,
+    userCheat,
   }
 })
