@@ -6,16 +6,22 @@ export class User {
   message: string
   sleepIdx: number
   STEP = 5
+  timer: any = null
+  socketId: string
   constructor(pos: Pos, name: string) {
     this.pos = pos
     this.name = name
     this.message = ''
     this.sleepIdx = -1
+    this.socketId = ''
   }
 
-  onTold(message: string) {
+  cheat(message: string) {
     this.message = message
-    setTimeout(() => {
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
+    this.timer = setTimeout(() => {
       this.message = ''
     }, 3000)
   }

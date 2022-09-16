@@ -9,6 +9,7 @@ import { setupGlobDirectives } from '@/directives'
 import 'uno.css'
 import '@unocss/reset/tailwind.css'
 import '@/assets/styles/global.less'
+import { initSocket } from '@/app/socket'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -22,3 +23,4 @@ setupGlobDirectives(app)
 
 app.mount('#app')
 
+initSocket()

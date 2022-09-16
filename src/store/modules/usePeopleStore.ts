@@ -5,6 +5,7 @@ export interface IPeopleInfo {
   pos: Pos
   name: string
   socketId: string
+  message: string
 }
 
 export const usePeopleStore = defineStore('people', () => {
@@ -16,8 +17,12 @@ export const usePeopleStore = defineStore('people', () => {
     return userList.value.filter(item => item.name !== user.value?.name)
   })
 
-  function updateUser(name: string, info: Partial<IPeopleInfo>) {
-    const idx = userList.value.findIndex(user => user.name === name)
+  function cleanUp() {
+    userList.value = []
+  }
+
+  function updateUser(socketId: string, info: Partial<IPeopleInfo>) {
+    const idx = userList.value.findIndex(user => user.socketId === socketId)
     userList.value[idx] = { ...userList.value[idx], ...info }
   }
 
@@ -33,12 +38,12 @@ export const usePeopleStore = defineStore('people', () => {
   function deleteUser(socketId: string) {
     const idx = userList.value.findIndex(user => user.socketId === socketId)
     if (idx !== -1) {
-      const store = useUserStore()
-      if (store.user?.name === userList.value[idx].name) {
-        store.userLogout()
-      }
       userList.value.splice(idx, 1)
     }
+  }
+
+  function getUserByName(name: string) {
+    return userList.value.find(user => user.name === name)
   }
 
   return {
@@ -47,5 +52,7 @@ export const usePeopleStore = defineStore('people', () => {
     addUser,
     updateUser,
     deleteUser,
+    getUserByName,
+    cleanUp,
   }
 })

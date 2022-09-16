@@ -22,9 +22,10 @@ const styles = computed((): StyleValue => {
 </script>
 
 <template>
-  <div flex="c col" v-show="!props.isSleeping" :style="styles">
+  <div v-show="!props.isSleeping" flex="c col" :style="styles">
     <span absolute top--4 left="50%" translate-x="-50%" border rounded-4px mb--4 py-1 px-2 bg-brand-primary text="white 12px" style="width: max-content">
-      ({{ props.pos.x }}, {{ props.pos.y }})
+      <!-- ({{ props.pos.x }}, {{ props.pos.y }}) -->
+      {{ props.name }}
     </span>
     <div w-90px h-90px border>
       <img src="@/assets/img/Boy.png" alt="boy">

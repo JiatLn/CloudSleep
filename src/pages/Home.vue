@@ -20,7 +20,7 @@ onMounted(() => {
     <TheUser v-if="isLogin" :pos="me!.pos" :name="me!.name" :message="me?.message" :is-sleeping="me?.isSleeping" />
     <TheUser
       v-for="user in otherUserList" :key="user.name"
-      :pos="user.pos" :name="user.name" />
+      :pos="user.pos" :name="user.name" :message="user.message" />
     <CheatInput v-if="isLogin" />
   </div>
 </template>
