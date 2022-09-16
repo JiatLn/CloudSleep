@@ -27,7 +27,7 @@ const styles = computed((): StyleValue => {
       <!-- ({{ props.pos.x }}, {{ props.pos.y }}) -->
       {{ props.name }}
     </span>
-    <div w-90px h-90px border>
+    <div w-90px h-90px>
       <img src="@/assets/img/Boy.png" alt="boy">
     </div>
     <div v-show="props.message?.length" class="cloud">

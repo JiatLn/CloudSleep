@@ -12,3 +12,5 @@ export interface MoveData {
   socketId: string
   position: Pos
 }
+
+export type Direction = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight'

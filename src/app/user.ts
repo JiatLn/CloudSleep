@@ -1,3 +1,4 @@
+import { useBedStore } from '@/store'
 import type { Pos } from '@/types'
 
 export class User {
@@ -37,40 +38,35 @@ export class User {
   onKeyDown(e: KeyboardEvent) {
     if (this.isSleeping)
       return
-
     const { key } = e
     const { x, y } = this.pos
-
+    let nextPos = { x, y }
     switch (key) {
       case 'ArrowUp':
         if (y <= 0)
           return
-        this._move({
-          x,
-          y: y - this.STEP,
-        })
+        nextPos = { x, y: y - this.STEP }
         break
       case 'ArrowDown':
-        this._move({
-          x,
-          y: y + this.STEP,
-        })
+        nextPos = { x, y: y + this.STEP }
         break
       case 'ArrowLeft':
         if (x <= 0)
           return
-        this._move({
-          x: x - this.STEP,
-          y,
-        })
+        nextPos = { x: x - this.STEP, y }
         break
       case 'ArrowRight':
-        this._move({
-          x: x + this.STEP,
-          y,
-        })
+        nextPos = { x: x + this.STEP, y }
         break
+      default:
+        return
     }
+    // 床的碰撞检测
+    const bedStore = useBedStore()
+    if (bedStore.checkCollisionDetction(nextPos, key)) {
+      return
+    }
+    this._move(nextPos)
   }
 
   _move(pos: Pos) {
