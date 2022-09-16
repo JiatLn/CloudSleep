@@ -1,67 +1,52 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import type { Bed } from '@/types'
+import { useBedStore } from '@/store'
 
-const bedItems = ref<Bed[]>(
-  Array.from({ length: 8 * 4 }, _ => ({
-    isUsed: false,
-    pos: { x: 0, y: 0 },
-  })),
-)
+const bedStore = useBedStore()
+const { bedList } = storeToRefs(bedStore)
+const userStore = useUserStore()
+const { user } = storeToRefs(userStore)
 
 const bedListRef = ref<HTMLDivElement>()
 
 onMounted(() => {
-  refreshPos()
+  if (bedListRef.value)
+    bedStore.refreshPos(bedListRef.value)
 })
 
 useResizeObserver(document.body, (_) => {
-  refreshPos()
+  if (bedListRef.value)
+    bedStore.refreshPos(bedListRef.value)
 })
-
-function refreshPos() {
-  const children = bedListRef.value?.children
-  if (children) {
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i] as HTMLDivElement
-      bedItems.value[i].pos = {
-        x: child.offsetLeft,
-        y: child.offsetTop,
-      }
-    }
-  }
-}
-
-const userStore = useUserStore()
-const { user } = storeToRefs(userStore)
 
 watch(
   () => user.value?.sleepIdx,
-  (_, oldVal) => {
-    if (oldVal !== undefined && oldVal !== -1) {
-      bedItems.value[oldVal].isUsed = false
+  (_, oldIdx) => {
+    if (oldIdx !== undefined && oldIdx !== -1) {
+      bedStore.updateBedState(oldIdx, false)
     }
   },
 )
 
 function toSleep(bedIdx: number) {
-  const bed = bedItems.value[bedIdx]
+  const bed = bedList.value[bedIdx]
   if (bed.isUsed || !user.value) {
     return
   }
   user.value.onSleep(bedIdx)
-  bed.isUsed = true
+  bedStore.updateBedState(bedIdx, true)
 }
 </script>
 
 <template>
   <div ref="bedListRef" grid="~ cols-8 row-auto gap-40px" mx-auto>
     <div
-      v-for="item, idx in bedItems" :key="idx"
+      v-for="item, idx in bedList" :key="idx"
       cursor="pointer"
       :class="{ 'border-brand-primary! border-solid': item.isUsed }"
       w-80px
-      h-80px border="~ gray dashed" relative @click="toSleep(idx)">
+      h-80px border="~ gray dashed" relative @click="toSleep(idx)"
+    >
       <img v-if="!item.isUsed" src="@/assets/img/bedEmpty.png" alt="bed" hover="op-40">
       <img v-if="item.isUsed" src="@/assets/img/bedBoy.png" alt="bed" hover="op-40">
       <span text="12px #333" absolute bottom--6 left="50%" translate-x="-50%" style="width:max-content">({{ item.pos.x }}, {{ item.pos.y }})</span>
