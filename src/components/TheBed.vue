@@ -44,12 +44,11 @@ function toSleep(bedIdx: number) {
       v-for="item, idx in bedList" :key="idx"
       cursor="pointer"
       :class="{ 'border-brand-primary! border-solid': item.isUsed }"
-      w-80px
-      h-80px border="~ gray dashed" relative @click="toSleep(idx)"
+      w-80px h-80px relative @click="toSleep(idx)"
     >
       <img v-if="!item.isUsed" src="@/assets/img/bedEmpty.png" alt="bed" hover="op-40">
       <img v-if="item.isUsed" src="@/assets/img/bedBoy.png" alt="bed" hover="op-40">
-      <span text="12px #333" absolute bottom--6 left="50%" translate-x="-50%" style="width:max-content">({{ item.pos.x }}, {{ item.pos.y }})</span>
+      <span text="12px #333" absolute bottom--6 left="50%" translate-x="-50%" style="width:max-content" hidden>({{ item.pos.x }}, {{ item.pos.y }})</span>
     </div>
   </div>
 </template>
