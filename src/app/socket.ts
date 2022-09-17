@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia'
 import type { IPeopleInfo } from '@/store'
 import type { MoveData } from '@/types'
 
-const socket = io('http://localhost:3000')
+const socket = io('http://47.242.162.174:3000/')
 
 export function initSocket() {
   socket.on('connect', () => {
