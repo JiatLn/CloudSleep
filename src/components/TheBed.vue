@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useBedStore } from '@/store'
 
 const bedStore = useBedStore()
 const { bedList } = storeToRefs(bedStore)

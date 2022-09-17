@@ -13,4 +13,5 @@ export interface MoveData {
   position: Pos
 }
 
-export type Direction = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight'
+export type Direction
+  = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight' | 'w' | 'a' | 's' | 'd'

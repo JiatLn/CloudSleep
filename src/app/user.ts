@@ -1,4 +1,3 @@
-import { useBedStore } from '@/store'
 import type { Pos } from '@/types'
 
 export class User {
@@ -43,19 +42,23 @@ export class User {
     let nextPos = { x, y }
     switch (key) {
       case 'ArrowUp':
+      case 'w':
         if (y <= 0)
           return
         nextPos = { x, y: y - this.STEP }
         break
       case 'ArrowDown':
+      case 's':
         nextPos = { x, y: y + this.STEP }
         break
       case 'ArrowLeft':
+      case 'a':
         if (x <= 0)
           return
         nextPos = { x: x - this.STEP, y }
         break
       case 'ArrowRight':
+      case 'd':
         nextPos = { x: x + this.STEP, y }
         break
       default:

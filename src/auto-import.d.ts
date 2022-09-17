@@ -109,13 +109,13 @@ declare global {
   const useAttrs: typeof import('vue')['useAttrs']
   const useBase64: typeof import('@vueuse/core')['useBase64']
   const useBattery: typeof import('@vueuse/core')['useBattery']
+  const useBedStore: typeof import('./store/modules/useBedStore')['useBedStore']
   const useBluetooth: typeof import('@vueuse/core')['useBluetooth']
   const useBreakpoints: typeof import('@vueuse/core')['useBreakpoints']
   const useBroadcastChannel: typeof import('@vueuse/core')['useBroadcastChannel']
   const useBrowserLocation: typeof import('@vueuse/core')['useBrowserLocation']
   const useCached: typeof import('@vueuse/core')['useCached']
   const useClipboard: typeof import('@vueuse/core')['useClipboard']
-  const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCounter: typeof import('@vueuse/core')['useCounter']
@@ -373,13 +373,13 @@ declare module '@vue/runtime-core' {
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useBase64: UnwrapRef<typeof import('@vueuse/core')['useBase64']>
     readonly useBattery: UnwrapRef<typeof import('@vueuse/core')['useBattery']>
+    readonly useBedStore: UnwrapRef<typeof import('./store/modules/useBedStore')['useBedStore']>
     readonly useBluetooth: UnwrapRef<typeof import('@vueuse/core')['useBluetooth']>
     readonly useBreakpoints: UnwrapRef<typeof import('@vueuse/core')['useBreakpoints']>
     readonly useBroadcastChannel: UnwrapRef<typeof import('@vueuse/core')['useBroadcastChannel']>
     readonly useBrowserLocation: UnwrapRef<typeof import('@vueuse/core')['useBrowserLocation']>
     readonly useCached: UnwrapRef<typeof import('@vueuse/core')['useCached']>
     readonly useClipboard: UnwrapRef<typeof import('@vueuse/core')['useClipboard']>
-    readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>

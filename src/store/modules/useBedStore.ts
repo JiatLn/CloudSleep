@@ -34,6 +34,7 @@ export const useBedStore = defineStore('bed', () => {
     const bottom = pos.y + 50
     switch (direction) {
       case 'ArrowUp':
+      case 'w':
         return bedList.value.some(
           bed =>
             bed.pos.y + 50 >= top
@@ -42,6 +43,7 @@ export const useBedStore = defineStore('bed', () => {
             && bed.pos.x + 50 >= left,
         )
       case 'ArrowDown':
+      case 's':
         return bedList.value.some(
           bed =>
             bed.pos.y <= bottom
@@ -51,6 +53,7 @@ export const useBedStore = defineStore('bed', () => {
             && bed.pos.x + 50 >= left,
         )
       case 'ArrowLeft':
+      case 'a':
         return bedList.value.some(
           bed =>
             bed.pos.x + 50 >= left
@@ -59,6 +62,7 @@ export const useBedStore = defineStore('bed', () => {
             && bed.pos.y + 50 >= top,
         )
       case 'ArrowRight':
+      case 'd':
         return bedList.value.some(
           bed =>
             bed.pos.x <= right
