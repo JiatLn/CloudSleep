@@ -1,11 +1,12 @@
 import { defineStore, storeToRefs } from 'pinia'
-import type { Pos } from '@/types'
+import type { Pos, Sex } from '@/types'
 
 export interface IPeopleInfo {
   pos: Pos
   name: string
   socketId: string
   message: string
+  sex: Sex
 }
 
 export const usePeopleStore = defineStore('people', () => {

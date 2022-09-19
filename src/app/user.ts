@@ -1,4 +1,4 @@
-import type { Pos } from '@/types'
+import type { Pos, Sex } from '@/types'
 
 export class User {
   pos: Pos
@@ -8,12 +8,14 @@ export class User {
   STEP = 5
   timer: any = null
   socketId: string
-  constructor(pos: Pos, name: string) {
+  sex: Sex
+  constructor(pos: Pos, name: string, sex: Sex) {
     this.pos = pos
     this.name = name
     this.message = ''
     this.sleepIdx = -1
     this.socketId = ''
+    this.sex = sex
   }
 
   cheat(message: string) {

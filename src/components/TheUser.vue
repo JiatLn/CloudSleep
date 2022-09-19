@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { StyleValue } from 'vue'
-import type { Pos } from '@/types'
+import type { Pos, Sex } from '@/types'
 
 const props = defineProps<{
   pos: Pos
   name: string
   message?: string
   isSleeping?: boolean
+  sex?: Sex
 }>()
 
 const styles = computed((): StyleValue => {
@@ -28,7 +29,8 @@ const styles = computed((): StyleValue => {
       {{ props.name }}
     </span>
     <div w-90px h-90px>
-      <img src="@/assets/img/Boy.png" alt="boy">
+      <img v-if="props.sex === 'F'" src="@/assets/img/Boy.png" alt="boy">
+      <img v-else src="@/assets/img/Girl.png" alt="girl">
     </div>
     <div v-show="props.message?.length" class="cloud">
       <div flex-1>
